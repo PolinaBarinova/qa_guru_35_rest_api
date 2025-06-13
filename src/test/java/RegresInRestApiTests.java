@@ -1,3 +1,5 @@
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,14 +10,19 @@ import static org.hamcrest.Matchers.*;
 
 public class RegresInRestApiTests {
 
-    private static final String base_url = "https://reqres.in/api";
+    @BeforeAll
+    public static void setUp() {
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
+    }
 
     @DisplayName("Получить список пользователей")
     @Test
     void getListUsersTest() {
         given()
                 .when()
-                .get(base_url + "/users?page=2")
+                .queryParam("page", "2")
+                .get("/users")
                 .then()
                 .log().status()
                 .log().body()
@@ -34,7 +41,7 @@ public class RegresInRestApiTests {
                 .contentType(JSON)
                 .body(requestBody)
                 .when()
-                .post(base_url + "/users")
+                .post("/users")
                 .then()
                 .log().status()
                 .log().body()
@@ -53,7 +60,7 @@ public class RegresInRestApiTests {
                 .contentType(JSON)
                 .body(requestBody)
                 .when()
-                .put(base_url + "/users/2")
+                .put("/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -72,7 +79,7 @@ public class RegresInRestApiTests {
                 .contentType(JSON)
                 .body(requestBody)
                 .when()
-                .patch(base_url + "/users/2")
+                .patch("/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -87,7 +94,7 @@ public class RegresInRestApiTests {
         given()
                 .header("x-api-key", "reqres-free-v1")
                 .when()
-                .get(base_url + "/users/999")
+                .get("/users/999")
                 .then()
                 .log().status()
                 .statusCode(404);
@@ -99,7 +106,7 @@ public class RegresInRestApiTests {
         given()
                 .header("x-api-key", "reqres-free-v1")
                 .when()
-                .delete(base_url + "/api/users/2")
+                .delete("/api/users/2")
                 .then()
                 .log().status()
                 .statusCode(204);
