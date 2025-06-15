@@ -1,3 +1,5 @@
+package tests;
+
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +10,7 @@ import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.*;
 
 
-public class RegresInRestApiTests {
+public class ReqresInRestApiTests {
 
     @BeforeAll
     public static void setUp() {
