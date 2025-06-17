@@ -1,12 +1,10 @@
 package tests;
 
 import io.qameta.allure.Owner;
-import io.restassured.RestAssured;
 import models.lombok.CreateAndUpdateUserBodyModel;
 import models.lombok.CreateResponseModel;
 import models.lombok.ListUsersResponseModel;
 import models.lombok.UpdateResponseModel;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,21 +13,14 @@ import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 import static specs.ReqresInSpecs.*;
-import static tests.TestBase.endpoint_users;
 
 @Tag("reqresin")
 @DisplayName("REST API тесты")
 @Owner("p.barinova")
-public class ReqresInRestApiTestsWithModels {
+public class ReqresInRestApiTestsWithModels extends TestBase {
 
     int existingUserId = 2;
     int nonExistingUserId = 23;
-
-    @BeforeAll
-    public static void setUp() {
-        RestAssured.baseURI = "https://reqres.in";
-        RestAssured.basePath = "/api";
-    }
 
     @DisplayName("Получить список пользователей")
     @Test
